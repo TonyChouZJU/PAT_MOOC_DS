@@ -7,6 +7,7 @@ by zhoudaxia
 #include<stdio.h>
 #include<stdlib.h>
 
+//栈的基本操作
 typedef struct node *Stack;
 typedef double ElementType;
 struct node{
@@ -29,10 +30,11 @@ pop(Stack S)
 	{
 		Stack tmpS;
 		ElementType tmpE;
-		tmpS = S->next;
+	 	tmpS = S->next;
 		S->next = tmpS->next;
 		tmpE = tmpS->Element;
 		free(tmpS);
+		//不能return S->next->Element 因为S可能为空
 		return tmpE;
 	}
 }	
@@ -89,6 +91,7 @@ ComputeTwo(double c1,double c2,double operator)
 	return result;
 }
 
+//根据字符串的不同，将字符串变成数字
 double
 getNum(char s[])
 {
@@ -100,9 +103,9 @@ getNum(char s[])
 	for(i = 0; i != strlen(s);++i)
 		if(*(s+i)=='.')
 			break;
-	if(i == strlen(s))
+	if(i == strlen(s))			//没有小数点
 	{
-		if(*s=='+'||*s=='-')
+		if(*s=='+'||*s=='-')		//起始有符号位，则j从1开始
 			j++;
 		for(; j != strlen(s); ++j)
 			sum = 10*sum + *(s+j)-'0';
